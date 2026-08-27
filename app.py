@@ -9,7 +9,7 @@ import streamlit.components.v1 as components
 
 
 APP_DIR = Path(__file__).parent
-IMAGE_PATH = APP_DIR / "assets" / "warehouse_board.png"
+IMAGE_PATH = APP_DIR / "assets" / "warehouse_board.jpg"
 
 st.set_page_config(page_title="현장 인원 배치판", page_icon="📍", layout="wide")
 
@@ -82,7 +82,7 @@ html = r'''<!doctype html>
   <button id="resetBtn" class="btn danger">오늘 배치 초기화</button>
   <div class="sub">이름표를 더블클릭하면 해당 인원을 삭제할 수 있습니다. 저장 데이터는 현재 브라우저에 보관됩니다.</div>
  </aside>
- <main class="stage-wrap"><div class="stage-head"><b>업무 상황판</b><span id="status" class="status">변경사항 없음</span></div><div id="stage" class="stage"><img src="data:image/png;base64,{{IMAGE}}"></div></main>
+ <main class="stage-wrap"><div class="stage-head"><b>업무 상황판</b><span id="status" class="status">변경사항 없음</span></div><div id="stage" class="stage"><img src="data:image/jpeg;base64,{{IMAGE}}"></div></main>
 </div><div id="toast" class="toast"></div>
 <script>
 const ZONES={{ZONES}}, DEFAULT={{PEOPLE}};
@@ -119,13 +119,12 @@ html = html.replace("{{PEOPLE}}", json.dumps(default_people, ensure_ascii=False)
 st.markdown(
     """
     <style>
-      html, body, [data-testid="stAppViewContainer"], [data-testid="stMain"], .main {height:100vh !important; overflow:hidden !important;}
-      .block-container {max-width:none !important; width:100vw !important; height:100vh !important; padding:0 !important; margin:0 !important;}
+      html, body, [data-testid="stAppViewContainer"] {overflow:hidden !important;}
+      .block-container {max-width:none !important; width:100% !important; padding:0 !important; margin:0 !important;}
       header[data-testid="stHeader"], [data-testid="stToolbar"], [data-testid="stDecoration"], footer {display:none !important;}
-      [data-testid="stElementContainer"], [data-testid="stCustomComponentV1"] {width:100% !important; height:100vh !important; margin:0 !important;}
       iframe {width:100% !important; height:100vh !important; border:0 !important; display:block !important;}
     </style>
     """,
     unsafe_allow_html=True,
 )
-components.html(html, height=1000, scrolling=False)
+components.html(html, height=900, scrolling=False)
