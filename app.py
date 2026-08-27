@@ -52,22 +52,22 @@ html = r'''<!doctype html>
 <html lang="ko"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
 <style>
 :root{--green:#087f5b;--mint:#dff7ed;--line:#d8e2df;--ink:#18312b;--muted:#6a7d78;}
-*{box-sizing:border-box} body{margin:0;background:#f4f7f6;color:var(--ink);font-family:Pretendard,"Noto Sans KR",Arial,sans-serif;user-select:none}
-.app{display:grid;grid-template-columns:250px minmax(720px,1fr);gap:14px;padding:12px;min-height:900px}
+*{box-sizing:border-box} html,body{width:100%;height:100%;margin:0;overflow:hidden} body{background:#f4f7f6;color:var(--ink);font-family:Pretendard,"Noto Sans KR",Arial,sans-serif;user-select:none}
+.app{display:grid;grid-template-columns:clamp(210px,15vw,260px) minmax(0,1fr);gap:10px;padding:8px;width:100vw;height:100vh;overflow:hidden}
 .panel,.stage-wrap{background:#fff;border:1px solid var(--line);border-radius:16px;box-shadow:0 8px 24px #193a3210}
-.panel{padding:15px;display:flex;flex-direction:column;gap:12px}.title{font-size:20px;font-weight:900}.sub{font-size:12px;color:var(--muted)}
+.panel{padding:11px;display:flex;flex-direction:column;gap:8px;min-height:0;overflow:hidden}.title{font-size:clamp(16px,1.2vw,20px);font-weight:900}.sub{font-size:11px;color:var(--muted)}
 .date{width:100%;padding:9px;border:1px solid var(--line);border-radius:9px}.stats{display:grid;grid-template-columns:1fr 1fr;gap:7px}
-.stat{padding:9px;border-radius:10px;background:#f2f8f6}.stat b{display:block;font-size:18px;color:var(--green)}
-.dropbox{min-height:70px;border:2px dashed #b9cbc5;border-radius:11px;padding:8px;background:#fafcfb}.dropbox.hot{border-color:var(--green);background:var(--mint)}
+.stat{padding:6px 8px;border-radius:10px;background:#f2f8f6;font-size:12px}.stat b{display:inline;margin-left:5px;font-size:16px;color:var(--green)}
+.dropbox{min-height:52px;border:2px dashed #b9cbc5;border-radius:11px;padding:6px;background:#fafcfb}.dropbox.hot{border-color:var(--green);background:var(--mint)}
 .dropbox-title{font-weight:800;font-size:13px;margin-bottom:6px}.person-list{display:flex;flex-wrap:wrap;gap:6px;align-content:flex-start}
-.person{position:relative;padding:6px 10px;border-radius:8px;background:#fff;border:2px solid #2383e2;color:#123d66;font-size:13px;font-weight:800;cursor:grab;box-shadow:0 2px 7px #0002;white-space:nowrap;touch-action:none;z-index:15}
+.person{position:relative;display:flex;align-items:center;gap:3px;padding:4px 5px 4px 8px;border-radius:8px;background:#fff;border:2px solid #2383e2;color:#123d66;font-size:12px;font-weight:800;cursor:grab;box-shadow:0 2px 7px #0002;white-space:nowrap;touch-action:none;z-index:15}.person .name{min-width:22px;outline:none}.person .name[contenteditable="true"]{background:#fff4bf;color:#111;border-radius:3px;padding:1px 3px;cursor:text}.edit-name{border:0;background:#eaf3fb;color:#216aa8;border-radius:4px;padding:1px 4px;font-size:10px;cursor:pointer}
 .person.office{border-color:#12a150;color:#0b6335}.person.off{border-color:#89938f;color:#505956;background:#edf0ef}.person.dragging{cursor:grabbing;opacity:.92;z-index:999;transform:scale(1.04)}
 .addrow{display:flex;gap:6px}.addrow input{min-width:0;flex:1;padding:8px;border:1px solid var(--line);border-radius:8px}.btn{border:0;border-radius:8px;padding:8px 10px;font-weight:800;cursor:pointer}.primary{background:var(--green);color:white}.secondary{background:#eaf1ef;color:#28443d}.danger{background:#fff0f0;color:#b42318}
-.toolbar{display:grid;grid-template-columns:1fr 1fr;gap:6px}.stage-wrap{padding:10px;overflow:auto}.stage-head{display:flex;justify-content:space-between;align-items:center;padding:2px 5px 9px}.status{font-size:13px;color:var(--muted)}
-.stage{position:relative;width:100%;min-width:720px;aspect-ratio:1436/1132;background:#ddd;border-radius:10px;overflow:hidden;border:1px solid #b9c3c0}.stage>img{position:absolute;width:100%;height:100%;object-fit:fill;pointer-events:none}
+.toolbar{display:grid;grid-template-columns:1fr 1fr;gap:5px}.stage-wrap{padding:8px;overflow:hidden;display:flex;flex-direction:column;min-width:0;min-height:0}.stage-head{flex:0 0 auto;display:flex;justify-content:space-between;align-items:center;padding:0 4px 6px}.status{font-size:12px;color:var(--muted)}
+.stage{position:relative;flex:0 1 auto;width:100%;max-width:calc((100vh - 48px) * 1.7779);max-height:calc(100vh - 48px);aspect-ratio:1672/941;margin:auto;background:#ddd;border-radius:8px;overflow:hidden;border:1px solid #b9c3c0}.stage>img{position:absolute;inset:0;width:100%;height:100%;object-fit:contain;pointer-events:none}
 .zone{position:absolute;border:1.5px dashed transparent;border-radius:5px;pointer-events:none}.show-zones .zone{border-color:#00a56a88;background:#00a56a10}.zone-label{display:none;position:absolute;top:2px;left:3px;font-size:9px;background:#087f5bcc;color:#fff;padding:2px 4px;border-radius:4px}.show-zones .zone-label{display:block}
 .stage .person{position:absolute;transform:translate(-50%,-50%)}.toast{position:fixed;right:20px;bottom:20px;background:#173f35;color:#fff;padding:10px 14px;border-radius:9px;opacity:0;transition:.2s;z-index:2000}.toast.on{opacity:1}
-@media(max-width:950px){.app{grid-template-columns:1fr}.panel{order:2}.stage-wrap{order:1}.stage{min-width:680px}}
+@media(max-width:900px){.app{grid-template-columns:190px minmax(0,1fr);gap:6px;padding:5px}.panel{padding:7px;gap:5px}.sub{display:none}.dropbox{min-height:42px}.person{font-size:10px;padding:3px 4px}.btn{padding:6px;font-size:11px}.stage{max-width:calc((100vh - 38px) * 1.7779);max-height:calc(100vh - 38px)}}
 </style></head><body>
 <div class="app">
  <aside class="panel">
@@ -95,10 +95,10 @@ function save(){localStorage.setItem(key(),JSON.stringify({date:dateEl.value,peo
 function setStatus(t){document.getElementById('status').textContent=t} function changed(){dirty=true;setStatus('저장하지 않은 변경사항')}
 function toast(t){let e=document.getElementById('toast');e.textContent=t;e.classList.add('on');setTimeout(()=>e.classList.remove('on'),1500)}
 ZONES.forEach(z=>{let e=document.createElement('div');e.className='zone';Object.assign(e.style,{left:z.x+'%',top:z.y+'%',width:z.w+'%',height:z.h+'%'});e.innerHTML='<span class="zone-label">'+z.id+'</span>';stage.appendChild(e)})
-function personEl(p){let e=document.createElement('div');e.className='person '+(p.place==='office'?'office':p.place==='off'?'off':'');e.textContent=p.name;e.dataset.id=p.id;e.title=p.zone||p.place;e.addEventListener('pointerdown',startDrag);e.addEventListener('dblclick',()=>{if(confirm(p.name+' 인원을 삭제할까요?')){people=people.filter(x=>x.id!==p.id);changed();render()}});return e}
+function personEl(p){let e=document.createElement('div');e.className='person '+(p.place==='office'?'office':p.place==='off'?'off':'');e.dataset.id=p.id;e.title=(p.zone||p.place)+' · 우클릭 삭제';let n=document.createElement('span');n.className='name';n.textContent=p.name;let b=document.createElement('button');b.className='edit-name';b.textContent='수정';b.title='이름 수정';b.addEventListener('pointerdown',ev=>ev.stopPropagation());b.addEventListener('click',ev=>{ev.stopPropagation();n.contentEditable='true';n.focus();document.getSelection().selectAllChildren(n)});n.addEventListener('pointerdown',ev=>{if(n.contentEditable==='true')ev.stopPropagation()});n.addEventListener('input',()=>{let value=n.textContent.trim();if(value){p.name=value;changed()}});n.addEventListener('keydown',ev=>{if(ev.key==='Enter'){ev.preventDefault();n.blur()}if(ev.key==='Escape'){n.textContent=p.name;n.blur()}});n.addEventListener('blur',()=>{if(!n.textContent.trim())n.textContent=p.name;n.contentEditable='false';localStorage.setItem(masterKey(),JSON.stringify(people.map(x=>x.name)));render()});e.append(n,b);e.addEventListener('pointerdown',startDrag);e.addEventListener('contextmenu',ev=>{ev.preventDefault();if(confirm(p.name+' 인원을 삭제할까요?')){people=people.filter(x=>x.id!==p.id);changed();render()}});return e}
 function render(){document.querySelectorAll('.person').forEach(e=>e.remove()); for(const p of people){let e=personEl(p);if(p.place==='stage'){e.style.left=p.x+'%';e.style.top=p.y+'%';stage.appendChild(e)}else document.querySelector('#'+p.place+' .person-list').appendChild(e)}
  let counts={pool:0,office:0,off:0,stage:0};people.forEach(p=>counts[p.place]++);document.getElementById('fieldN').textContent=counts.stage;document.getElementById('officeN').textContent=counts.office;document.getElementById('offN').textContent=counts.off;document.getElementById('poolN').textContent=counts.pool}
-function startDrag(ev){ev.preventDefault();let p=people.find(x=>x.id===ev.currentTarget.dataset.id);let ghost=ev.currentTarget;let r=ghost.getBoundingClientRect();drag={p,ghost,dx:ev.clientX-r.left-r.width/2,dy:ev.clientY-r.top-r.height/2};ghost.classList.add('dragging');ghost.style.position='fixed';ghost.style.left=ev.clientX-drag.dx+'px';ghost.style.top=ev.clientY-drag.dy+'px';ghost.style.transform='translate(-50%,-50%)';document.body.appendChild(ghost);ghost.setPointerCapture(ev.pointerId);ghost.addEventListener('pointermove',moveDrag);ghost.addEventListener('pointerup',endDrag,{once:true})}
+function startDrag(ev){if(ev.target.closest('.edit-name')||ev.target.contentEditable==='true')return;ev.preventDefault();let p=people.find(x=>x.id===ev.currentTarget.dataset.id);let ghost=ev.currentTarget;let r=ghost.getBoundingClientRect();drag={p,ghost,dx:ev.clientX-r.left-r.width/2,dy:ev.clientY-r.top-r.height/2};ghost.classList.add('dragging');ghost.style.position='fixed';ghost.style.left=ev.clientX-drag.dx+'px';ghost.style.top=ev.clientY-drag.dy+'px';ghost.style.transform='translate(-50%,-50%)';document.body.appendChild(ghost);ghost.setPointerCapture(ev.pointerId);ghost.addEventListener('pointermove',moveDrag);ghost.addEventListener('pointerup',endDrag,{once:true})}
 function moveDrag(ev){if(!drag)return;drag.ghost.style.left=ev.clientX-drag.dx+'px';drag.ghost.style.top=ev.clientY-drag.dy+'px';['pool','office','off'].forEach(id=>{let e=document.getElementById(id),r=e.getBoundingClientRect();e.classList.toggle('hot',ev.clientX>=r.left&&ev.clientX<=r.right&&ev.clientY>=r.top&&ev.clientY<=r.bottom)})}
 function endDrag(ev){if(!drag)return;let p=drag.p,sr=stage.getBoundingClientRect(),placed=false;if(ev.clientX>=sr.left&&ev.clientX<=sr.right&&ev.clientY>=sr.top&&ev.clientY<=sr.bottom){p.x=Math.max(1,Math.min(99,(ev.clientX-sr.left)/sr.width*100));p.y=Math.max(1,Math.min(99,(ev.clientY-sr.top)/sr.height*100));p.place='stage';let z=ZONES.find(z=>p.x>=z.x&&p.x<=z.x+z.w&&p.y>=z.y&&p.y<=z.y+z.h);p.zone=z?.id||'기타';placed=true}
  for(const id of ['pool','office','off']){let e=document.getElementById(id),r=e.getBoundingClientRect();e.classList.remove('hot');if(ev.clientX>=r.left&&ev.clientX<=r.right&&ev.clientY>=r.top&&ev.clientY<=r.bottom){p.place=id;p.zone=id==='office'?'사무실':id==='off'?'휴무':'미배치';placed=true}}
@@ -119,12 +119,13 @@ html = html.replace("{{PEOPLE}}", json.dumps(default_people, ensure_ascii=False)
 st.markdown(
     """
     <style>
-      .block-container {max-width: 1680px; padding: .6rem .8rem 1rem;}
-      header[data-testid="stHeader"] {display:none;}
-      iframe {border-radius: 14px;}
+      html, body, [data-testid="stAppViewContainer"], [data-testid="stMain"], .main {height:100vh !important; overflow:hidden !important;}
+      .block-container {max-width:none !important; width:100vw !important; height:100vh !important; padding:0 !important; margin:0 !important;}
+      header[data-testid="stHeader"], [data-testid="stToolbar"], [data-testid="stDecoration"], footer {display:none !important;}
+      [data-testid="stElementContainer"], [data-testid="stCustomComponentV1"] {width:100% !important; height:100vh !important; margin:0 !important;}
+      iframe {width:100% !important; height:100vh !important; border:0 !important; display:block !important;}
     </style>
     """,
     unsafe_allow_html=True,
 )
-components.html(html, height=950, scrolling=True)
-
+components.html(html, height=1000, scrolling=False)

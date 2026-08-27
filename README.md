@@ -20,6 +20,9 @@ streamlit run app.py
 - 구역 판정선 표시
 - JSON 백업 다운로드
 - PC 및 태블릿 화면 대응
+- 브라우저 전체화면 사용 및 페이지 스크롤 제거
+- 원본 현황판 비율 유지 자동 축소·확대
+- 명찰의 `수정` 버튼을 통한 실시간 이름 변경
 
 ## 저장 방식
 
@@ -28,4 +31,3 @@ streamlit run app.py
 ## GitHub 배포
 
 저장소 루트에 이 폴더의 파일을 넣고 Streamlit Community Cloud에서 `app.py`를 시작 파일로 선택합니다.
-
